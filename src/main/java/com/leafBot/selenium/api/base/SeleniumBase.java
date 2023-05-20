@@ -19,6 +19,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -259,7 +260,13 @@ public class SeleniumBase extends Reporter implements Browser, Element{
 		try {
 			if(browser.equalsIgnoreCase("chrome")) {
 				WebDriverManager.chromedriver().setup();
-				driver = new ChromeDriver();
+			       ChromeOptions options = new ChromeOptions();
+
+			       options.addArguments("--no-sandbox");
+			       options.addArguments("--headless"); // headless flag for chrome
+			       options.addArguments("disable-gpu");
+
+				driver = new ChromeDriver(options);
 			} else if(browser.equalsIgnoreCase("firefox")) {
 				WebDriverManager.firefoxdriver().setup();
 				driver = new FirefoxDriver();
